@@ -1,0 +1,65 @@
+#!/bin/sh
+
+
+class1_answers.txt
+#1) What is the hard disk size of curie? 
+df -h #this gices hard disk space
+top #this gives us live updates about the current processes
+#Answer: Home = 51G 
+
+#2) How much of the hard disk is currently free? 
+#Answer: Home Available = 51G
+
+#3) How much RAM does curie have? 
+top #we are able to identify the free disk space:
+#Answer: Home Available = 51G
+
+#4) Which users are currently running processes on curie? 
+top
+#rtalaba and root
+
+#5) How many CPUs is the process using the most memory using?  
+#1.2 CPU
+
+#6) How many people have an account on curie?
+cat /etc/passwd | wc -l
+
+#7) Which user is using the most hard disk space?  
+#rtalaba
+
+#8) What is the path to the file braker.log? 
+locate braker.log
+#/data/labs/Strickler/Strickler/funk_backups/Calo/output/braker3/tolmiei/braker_output/braker.log
+
+#9) Which version(s) of Python are installed on the system?   
+python3 -V
+#Python 3.10.12
+
+#10) Which version of R is on the system? 
+R --V
+#R version 4.1.2 (2021-11-01) -- "Bird Hippie"
+
+
+###BLAST
+
+#I used wget to gain access to my uploaded file
+
+wget https://solgenomics.net/ftp/bioinfo_class/interns/2018/blast_data.tar.gz 
+
+#1 Create a BLAST database for tomato_1000cdna.fasta with name tomato_1000cdna_b+ and title “Solanum lycopersicum 1000 cDNA”
+
+makeblastdb -in tomato_1000cdna.fasta -dbtype nucl -out tomato_1000cdna_b+ -title "Solanum lycopersicum 1000 cDNA" #nucleotides
+
+#2. Create a BLAST database for TAIR10_pep.fasta with name at_prots.
+
+makeblastdb -in TAIR10_pep.fasta -dbtype prot -out at_prots -title "Arabidopsis"  #proteins 
+
+
+#3. Find the most similar genes between tomato5.fasta and tomato_1000cdna.fasta in tabular format.
+
+#using outputfmt 6 to get a table
+
+tblastn -query test.fasta -db tomato_1000cdna_b+ -out compare_tomatoes.txt -outfmt 6
+#
+
+#lower the e vlaue better the match
